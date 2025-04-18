@@ -1,10 +1,19 @@
-
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Check } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useState } from "react";
+import { ApplicationForm } from "@/components/translator/ApplicationForm";
 
 const BecomeTranslator = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   return (
     <Layout>
       <section className="py-16 px-4">
@@ -84,11 +93,22 @@ const BecomeTranslator = () => {
           </div>
 
           <div className="text-center">
-            <Button size="lg" className="px-8">Apply Now</Button>
+            <Button size="lg" className="px-8" onClick={() => setIsDialogOpen(true)}>
+              Apply Now
+            </Button>
             <p className="mt-4 text-sm text-gray-500">
               Applications are typically reviewed within 48 hours
             </p>
           </div>
+
+          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+            <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Translator Application</DialogTitle>
+              </DialogHeader>
+              <ApplicationForm onClose={() => setIsDialogOpen(false)} />
+            </DialogContent>
+          </Dialog>
         </div>
       </section>
     </Layout>
